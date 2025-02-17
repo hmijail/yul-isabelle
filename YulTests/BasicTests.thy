@@ -16,6 +16,9 @@ definition prog1 :: "(256 word, unit) YulStatement" where
 value prog1
 
 value "evalYul basicDialect prog1 90"
+lemma  "b_trace (result.global (yresult (evalYul basicDialect prog1 90)))!0 = 2" by eval
+lemma  "b_trace (result.global (yresult (evalYul basicDialect prog1 90))) = [2]" by eval
+
 
 definition prog2 :: "(256 word, unit) YulStatement" where
 "prog2 \<equiv>

@@ -166,7 +166,7 @@ record ('g, 'v, 't) result =
   funs :: "('g, 'v, 't) function_sig locals"
 
 datatype ('g, 'v, 't, 'z) YulResult =
-  YulResult "('g, 'v, 't, 'z) result_scheme"
+  YulResult (yresult:"('g, 'v, 't, 'z) result_scheme")
   (* errors can optionally carry failed state *)
   | ErrorResult "String.literal" "('g, 'v, 't, 'z) result_scheme option"
 

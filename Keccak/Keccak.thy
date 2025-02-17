@@ -4,15 +4,15 @@ theory "Keccak"
 
 imports
   Main
-  (* HOL-Library.Word *)
   "HOL-Library.Word"
-  "../Word_Lib/Traditional_Infix_Syntax"
-  "../Word_Lib/Rsplit"
-  "../Word_Lib/Reversed_Bit_Lists"
-
+  "Word_Lib.Bit_Shifts_Infix_Syntax"
+  "Word_Lib.Rsplit"
+  "Word_Lib.Reversed_Bit_Lists"
 begin 
 
-
+context
+  includes bit_operations_syntax
+begin
 
 (* Copyright 2016 Sami MÃ¤kelÃ¤
  Licensed under the Apache License; Version 2.0 (the "License"); 
@@ -238,5 +238,7 @@ definition keccak  :: "(byte)list \<Rightarrow> 256 word "  where
      " keccak input = ( Word.word_rcat (keccak' input))"
 
 
+
+end
 
 end

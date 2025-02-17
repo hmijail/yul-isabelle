@@ -1,8 +1,8 @@
 theory MiniEvm
   imports "../Yul/YulDialect"
     "HOL-Library.Word"
+    "Word_Lib.Bits_Int"
     "../Keccak/Keccak"
-    "../Word_Lib/Bits_Int"
     "../Yul/YulSemanticsSingleStep"
 begin
 
@@ -242,7 +242,12 @@ fun smodu' :: "('a :: len) word \<Rightarrow> 'a word \<Rightarrow> 'a word" whe
     times_word_inst.times_word (word_of_int (-1)) (modu' (word_abs i1) (word_abs i2))
    else modu' (word_abs i1) (word_abs i2))"
 
+   
 (* new sign extend implementation for better compatibility with Isabelle2021 *)
+context
+  includes bit_operations_syntax
+  begin
+  
 fun signextend' :: "('a :: len) word \<Rightarrow> nat \<Rightarrow> 'a word" where
 "signextend' w n =
   (let signloc = 8 * (n + 1) - 1 in
@@ -253,7 +258,8 @@ fun signextend' :: "('a :: len) word \<Rightarrow> nat \<Rightarrow> 'a word" wh
     (if w AND testmask = word_of_int 0
      then w AND mask
      else w OR (NOT mask)))))"
-
+end
+     
 fun shl_many :: "('a :: len) word \<Rightarrow> int \<Rightarrow> 'a word" where
 "shl_many w n =
   (if n \<le> 0 then w
